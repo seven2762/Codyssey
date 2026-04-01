@@ -8,12 +8,15 @@ from quiz import Quiz
 
 
 class QuizGame:
-    def __init__(
+      def __init__(
         self,
-        state_path: str | Path = "state.json",
+        state_path: str | Path | None = None,
         input_func: Callable[[str], str] = input,
     ) -> None:
-        self.state_path = Path(state_path)
+        if state_path is None:
+            self.state_path = Path(__file__).resolve().parent / "state.json"
+        else:
+            self.state_path = Path(state_path)
         self.input_func = input_func
         self.quizzes: list[Quiz] = []
         self.best_score: int | None = None
